@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.agent.base.manager.PropertiesManager;
 import com.agent.base.proxy.adapter.IBaseAdapter;
 import com.agent.base.proxy.annotation.MainService;
 import com.agent.base.proxy.load.ServiceBeanMap;
@@ -40,7 +41,7 @@ public class BaseServiceImpl implements IBaseService{
 	}
 
 	@Override
-	public void init(String methodName, HttpServletRequest request) {
+	public String init(String methodName, HttpServletRequest request) {
 		if(StringUtils.isBlank(methodName)){
 			throw new SystemException("系统错误，未知调用方法");
 		}
@@ -53,8 +54,10 @@ public class BaseServiceImpl implements IBaseService{
 		baseParam.setParam(q);
 		ThreadLocalContants.baseParamLocal.set(baseParam);
 		
-		AgentSession session = AgentSession.getSession(uid, 1800l);
+		Long expireSecond = Long.parseLong(PropertiesManager.get("session_timeout_second"));
+		AgentSession session = AgentSession.getSession(uid, expireSecond);
 		ThreadLocalContants.sessionLocal.set(session);
+		return session.getId();
 	}
 
 	@Override
@@ -70,7 +73,7 @@ public class BaseServiceImpl implements IBaseService{
 		if(config.needLogin()){
 			AgentSession session = ThreadLocalContants.getSession();
 			if(session == null || StringUtils.isBlank(session.getLoginId())){
-				throw new BussinessException("请先登录");
+				throw new BussinessException("业务错误，请先登录");
 			}
 		}
 	}

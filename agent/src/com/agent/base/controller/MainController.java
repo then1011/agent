@@ -32,7 +32,9 @@ public class MainController {
 		try {
 			log.info("调用方法：" +methodName);
 			
-			baseService.init(methodName, request);
+			String uid = baseService.init(methodName, request);
+			result.setUid(uid);
+			
 			Object obj = baseService.invoke();
 			baseService.destory();
 			

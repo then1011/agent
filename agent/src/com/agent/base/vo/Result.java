@@ -10,6 +10,7 @@ public class Result implements Serializable{
 	private int code = 0;
 	private String msg;
 	private Object content;
+	private String uid;
 	
 	public int getCode() {
 		return code;
@@ -28,6 +29,12 @@ public class Result implements Serializable{
 	}
 	public void setContent(Object content) {
 		this.content = content;
+	}
+	public String getUid() {
+		return uid;
+	}
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 }

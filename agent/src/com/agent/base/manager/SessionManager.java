@@ -1,5 +1,6 @@
 package com.agent.base.manager;
 
+import com.agent.base.cache.session.SessionCacheFactory;
 import com.agent.base.vo.AgentSession;
 
 public class SessionManager {
@@ -9,7 +10,7 @@ public class SessionManager {
 	 * @return
 	 */
 	public static AgentSession getSession(String uid){
-		return null;
+		return SessionCacheFactory.getSessionCache().getSessionCache(uid);
 	}
 	
 	/**
@@ -17,7 +18,7 @@ public class SessionManager {
 	 * @param session
 	 */
 	public static void refreshSession(AgentSession session){
-		
+		SessionCacheFactory.getSessionCache().setSessionCache(session);
 	}
 
 }

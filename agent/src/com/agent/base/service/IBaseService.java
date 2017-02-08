@@ -6,7 +6,7 @@ public interface IBaseService {
 
 	public Object invoke();
 
-	public void init(String methodName, HttpServletRequest request);
+	public String init(String methodName, HttpServletRequest request);
 
 	public void destory();
 
