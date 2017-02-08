@@ -16,4 +16,9 @@ public @interface MainService {
 	 * 组件唯一标识
 	 */
 	String id();
+	
+	/**
+	 * 判断是否需要登录
+	 */
+	boolean needLogin() default false;
 }

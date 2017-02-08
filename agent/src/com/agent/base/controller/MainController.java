@@ -25,7 +25,7 @@ public class MainController {
 	@Autowired
 	private IBaseService baseService;
 	
-	@RequestMapping("/MainMethod/{methodName}")
+	@RequestMapping(value="/MainMethod/{methodName}", produces={"text/plain;charset=utf-8"})
 	@ResponseBody
 	public Object mainMethod(@PathVariable String methodName, HttpServletRequest request){
 		Result result = new Result();
@@ -40,15 +40,15 @@ public class MainController {
 			result.setMsg("Success");
 			result.setContent(obj);
 		} catch(SystemException e) {
-			log.error(e);
+			log.error("系统错误", e);
 			result.setCode(-1);
 			result.setMsg(e.getMessage());
 		} catch (BussinessException e){
-			log.error(e);
+			log.error("业务错误",e);
 			result.setCode(-2);
 			result.setMsg(e.getMessage());
 		} catch (Exception e) {
-			log.error(e);
+			log.error("系统错误",e);
 			result.setCode(-1);
 			result.setMsg("系统错误");
 		}

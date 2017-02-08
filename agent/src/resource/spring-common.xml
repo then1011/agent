@@ -20,4 +20,5 @@
 	<bean id="propertiesManager" class="com.agent.base.manager.PropertiesManager" >
 		<property ref="propertiesReader" name="propertiesReader"/>
 	</bean>
+	<bean class="com.agent.base.proxy.load.InitLoadProcessor"/>
 </beans>
