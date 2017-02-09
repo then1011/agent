@@ -36,7 +36,6 @@ public class MainController {
 			result.setUid(uid);
 			
 			Object obj = baseService.invoke();
-			baseService.destory();
 			
 			log.info("返回结果：" + JSON.toJSONString(obj));
 			result.setMsg("Success");
@@ -53,6 +52,8 @@ public class MainController {
 			log.error("系统错误",e);
 			result.setCode(-1);
 			result.setMsg("系统错误");
+		}finally{
+			baseService.destory();
 		}
 		return JSONObject.toJSONString(result);
 	}
